@@ -3,9 +3,9 @@ import requests
 from requests import RequestException
 
 
-TELE_TOKEN = '7700153592:AAHlWJZQOPAFPlI5PbfPQ6Qiowk7O_aqYEg'  # Telegram bot token
+TELE_TOKEN = 'your_telegram_bot_token'  # Telegram bot token
 CURRENCY_URL = 'https://api.currencyapi.com/v3/latest'  # API URL for currency rates
-API_KEY = 'cur_live_QWTlbZ4CXH5ZUOGH63JHJJxp4evUBKcsW9zXvyDO'  # API key for currency service
+API_KEY = 'your_currencyapi_key'  # API key for currency service
 CURRENCY = 'RUB'  # Default currency is set to Russian Rubles
 BASE_CURRENCY = 'USD'  # Base currency is set to US Dollar
 
