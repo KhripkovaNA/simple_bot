@@ -15,7 +15,7 @@ bot = telebot.TeleBot(TELE_TOKEN)  # Initialize the bot with the provided token
 @bot.message_handler(commands=['restart', 'start'])
 def send_welcome(message):
     # Send a greeting message asking for the user's name
-    bot.send_message(message.from_user.id, "Hello. What is your name?")
+    bot.send_message(message.from_user.id, "Добрый день. Как вас зовут?")
     # Remove the user's name from cache (if exists) to request it again
     cache.pop(message.from_user.id, None)
 
@@ -24,7 +24,7 @@ def send_welcome(message):
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     currency = 'RUB'  # Default currency is set to Russian Rubles
-    rate_mes = 'could not be retrieved.'  # Default message for failed currency retrieval
+    rate_mes = 'не удалось выяснить.'  # Default message for failed currency retrieval
     params = dict(
         base_currency='USD',  # Base currency is set to US Dollar
         currencies=currency,
@@ -39,7 +39,7 @@ def get_text_messages(message):
             # Get the exchange rate value for RUB
             rate = resp_data.get('data', {}).get(currency, {}).get('value')
             if rate:
-                rate_mes = f'{round(rate, 2)} RUB.'  # Format the rate message
+                rate_mes = f'{rate:.2f} руб.'  # Format the rate message
     except:
         pass  # Ignore any errors during the request
 
@@ -50,11 +50,11 @@ def get_text_messages(message):
     else:
         # If the name is not stored, save it to the cache and greet the user
         name = message.text.title()
-        welcome = f'Nice to meet you, {name}!'
+        welcome = f'Рад знакомству, {name}!'
         cache[message.from_user.id] = name
 
     # Construct the reply message with the user's name and exchange rate
-    reply_mes = f'{welcome} The USD exchange rate today is {rate_mes}'
+    reply_mes = f'{welcome} Курс доллара сегодня {rate_mes}'
     bot.send_message(message.from_user.id, reply_mes)  # Send the message to the user
 
 
